@@ -1,0 +1,36 @@
+<div class="jumbotron py-3">
+  <h1 class="display-4 text-center"> Bem Vindo Curso Cast</h1>
+</div>
+<input type="text" class="form-control col-md-6" placeholder="Buscar">
+
+<button type="button" class="btn btn-dark" (click)="AdicionarCurso()">ADD</button>
+<hr>
+<app-cursos-form></app-cursos-form>
+<div class="row">
+  <div class="col-md-6">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Nome Curso</th>
+        <th>Data Inicio</th>
+        <th>Data Termino</th>
+        <th>Quantidade Alunos</th>
+        <th>Categoria do curso</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cr of cursos">
+        <td (click)="populateForm(cr)">{{cr.nomeCurso}}</td>
+        <td (click)="populateForm(cr)">{{cr.dataInicio}}</td>
+        <td (click)="populateForm(cr)">{{cr.data}}</td>
+        <td (click)="populateForm(cr)">{{cr.categorias}}</td>
+        <td (click)="populateForm(cr)">{{cr.qtAlunos}}</td>
+       <td>
+         <i class="bx bx-trash" (click)="onDelete(cr.cursoId)"></i>
+       </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

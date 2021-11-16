@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+html
+
+.jumbotron {
+  background: linear-gradient(-135deg,#f303cb,#06f1f1);
+}
+
+
+.form-group label {
+    color: grey;
+  }
+
+  .form-group input {
+    font-weight: 500;
+  }
+
+  .form-group input::placeholder {
+    color: #c0bdbd;
+    font-weight: 300;
+  }
+
+  thead th{
+    font-weight: 400;
+  }
+
+  table tbody tr:hover {
+    background: linear-gradient(-135deg,#f303cb,#06f1f1);
+    cursor: pointer;
+
+  }
+
+  /*for invalid form controls*/
+  input.invalid {
+    border-color: rgb(240, 233, 233);
+  }
+  .btn {
+    border:#f303cb;
+  }
+  .btn-info{
+    background: linear-gradient(-135deg,#f303cb,#06f1f1);
+  }
+  .btn-dark{
+    background: linear-gradient(-135deg,#f303cb,#06f1f1);
+  }
+  #date{
+    border:none;
+    padding: 8px;
+    border-radius: 10px;
+  }

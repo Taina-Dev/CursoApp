@@ -1,0 +1,43 @@
+<form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
+  <input type="hidden" name="cursoId" [value]="service.curso.cursoId" />
+  <div class="form-group col-md-6">
+    <label>Nome do Curso</label>
+      <input class="form-control form-control-lg" placeholder="Digite o nome do curso" name="Nomdocurso"
+          #Nomedocurso="ngModel" [(ngModel)]="service.curso.nomeCurso" required minlength="2" maxlength="20"
+          >
+          <div class="valid-feedback">
+            Muito bem !
+          </div>
+    </div>
+<div classs="form-row">
+<div class="form-group col-md-6">
+  <label>Data Inicio</label>
+<input class="form-control form-control-lg" type="date" name="dataInicio"
+      #dataInicio="ngModel" [(ngModel)]="service.curso.dataInicio" required
+       >
+</div>
+<div class="form-group col-md-6">
+  <label>Data Termino</label>
+<input class="form-control form-control-lg" type="date" name="dataTermino"
+      #data="ngModel" [(ngModel)]="service.curso.data" required
+      >
+</div>
+<div class="form-group col-md-6">
+  <label>Quantidade de Alunos</label>
+  <input class="form-control form-control-lg" placeholder="qtAlunos" name="qtAlunos"
+      #qtAlunos="ngModel" [(ngModel)]="service.curso.qtAlunos"
+       >
+</div>
+<div class="form-group col-md-6">
+  <label>Categorias</label>
+  <input class="form-control form-control-lg" placeholder="categorias" name="categorias"
+      #categorias="ngModel" [(ngModel)]="service.curso.categorias"
+      >
+</div>
+<div class="form-group col-md-3">
+  <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SALVAR</button>
+</div>
+
+</div>
+
+</form>
