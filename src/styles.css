@@ -43,8 +43,14 @@ html
   .btn-dark{
     background: linear-gradient(-135deg,#f303cb,#06f1f1);
   }
+  .btn-success{
+    background: linear-gradient(-135deg,#f303cb,#06f1f1);
+  }
   #date{
     border:none;
     padding: 8px;
     border-radius: 10px;
+  }
+  .navbar{
+    background: linear-gradient(-135deg,#f303cb,#06f1f1);
   }
