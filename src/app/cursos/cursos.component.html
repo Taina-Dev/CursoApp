@@ -1,13 +1,60 @@
+<!-- modal -->
+<!-- <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
+  <input type="hidden" name="cursoId" [value]="service.curso.cursoId" />
+  <div class="form-group col-md-6">
+    <label>Nome do Curso</label>
+      <input class="form-control form-control-lg" placeholder="Digite o nome do curso" name="Nomdocurso"
+          #Nomedocurso="ngModel" [(ngModel)]="service.curso.nomeCurso" required minlength="2" maxlength="20"
+          >
+          <div class="valid-feedback">
+            Muito bem !
+          </div>
+    </div>
+<div classs="form-row">
+<div class="form-group col-md-6">
+  <label>Data Inicio</label>
+<input class="form-control form-control-lg" type="date" name="dataInicio"
+      #dataInicio="ngModel" [(ngModel)]="service.curso.dataInicio" required
+       >
+</div>
+<div class="form-group col-md-6">
+  <label>Data Termino</label>
+<input class="form-control form-control-lg" type="date" name="dataTermino"
+      #data="ngModel" [(ngModel)]="service.curso.data" required
+      >
+</div>
+<div class="form-group col-md-6">
+  <label>Quantidade de Alunos</label>
+  <input class="form-control form-control-lg" placeholder="qtAlunos" name="qtAlunos"
+      #qtAlunos="ngModel" [(ngModel)]="service.curso.qtAlunos"
+       >
+</div>
+<div class="form-group col-md-6">
+  <label>Categorias</label>
+  <input class="form-control form-control-lg" placeholder="categorias" name="categorias"
+      #categorias="ngModel" [(ngModel)]="service.curso.categorias"
+      >
+</div>
+<div class="form-group col-md-3">
+  <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SALVAR</button>
+</div>
+</div>
+</form> -->
+<!-- ----modal----- -->
+
+
 <div class="jumbotron py-3">
   <h1 class="display-4 text-center"> Bem Vindo Curso Cast</h1>
 </div>
-<input type="text" class="form-control col-md-6" placeholder="Buscar">
-
-<button type="button" class="btn btn-dark" (click)="AdicionarCurso()">ADD</button>
+<!-- <input type="text" class="form-control col-md-6" placeholder="Buscar"> -->
+<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addCursosModal">
+  Cadastrar
+</button>
+<!-- <button type="button" class="btn btn-dark" (click)="AdicionarCurso()">Cadastrar</button> -->
 <hr>
-<app-cursos-form></app-cursos-form>
+<!-- <app-cursos-form></app-cursos-form> -->
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-10">
   <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -34,3 +81,67 @@
   </table>
   </div>
 </div>
+
+<div class="modal fade" id="addCursosModal" tabindex="-1" role="dialog" aria-labelledby="addCursosModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCursosModalLabel">Cadastrar Cursos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
+          <input type="hidden" name="cursoId" [value]="service.curso.cursoId" />
+          <div class="form-group col-md-7 ">
+            <label>Nome do Curso</label>
+              <input class="form-control form-control-lg" placeholder="Digite o nome do curso" name="Nomdocurso"
+                  #Nomedocurso="ngModel" [(ngModel)]="service.curso.nomeCurso" required minlength="2" maxlength="20"
+                  >
+                  <div class="valid-feedback">
+                    Muito bem !
+                  </div>
+            </div>
+        <div classs="form-row">
+        <div class="form-group col-md-7">
+          <label>Data Inicio</label>
+        <input class="form-control form-control-lg" type="date" name="dataInicio"
+              #dataInicio="ngModel" [(ngModel)]="service.curso.dataInicio" required
+               >
+        </div>
+        <div class="form-group col-md-7 ">
+          <label>Data Termino</label>
+        <input class="form-control form-control-lg" type="date" name="dataTermino"
+              #data="ngModel" [(ngModel)]="service.curso.data" required
+              >
+        </div>
+        <div class="form-group col-md-7 ">
+          <label>Quantidade de Alunos</label>
+          <input class="form-control form-control-lg" placeholder="qtAlunos" name="qtAlunos"
+              #qtAlunos="ngModel" [(ngModel)]="service.curso.qtAlunos"
+               >
+        </div>
+        <div class="form-group col-md-7">
+          <label>Categorias</label>
+          <input class="form-control form-control-lg" placeholder="categorias" name="categorias"
+              #categorias="ngModel" [(ngModel)]="service.curso.categorias"
+              >
+        </div>
+        <div class="form-group col-md-4">
+          <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SALVAR</button>
+        </div>
+        </div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+
