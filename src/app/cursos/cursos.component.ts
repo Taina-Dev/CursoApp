@@ -13,7 +13,26 @@ import { FormsModule } from '@angular/forms';
 })
 export class CursosComponent implements OnInit {
   cursos: Curso[] = []
+  private _filtroLista: string ='';
+
+
+  public get filtroLista(): string{
+     return this._filtroLista;
+  }
+
+  public set filtroLista(value: string){
+    this._filtroLista = value;
+    this.cursos = this.filtroLista ? this.filtrarCursos(this.filtroLista): this.cursos;
+  }
   constructor(public service: CursosService, private toastr: ToastrService) { }
+
+  filtrarCursos(filtrarPor: string): any{
+    filtrarPor= filtrarPor.toLocaleLowerCase();
+    return this.cursos.filter(
+      (curso: {nomeCurso: string; dataInicio: string;categorias: string}) => curso.nomeCurso.toLocaleLowerCase().indexOf(filtrarPor) !== -1||
+      curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1 || curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1);
+  }
+
 
   ngOnInit(): void {
     this.service.refreshList().subscribe(cursos => {
@@ -48,6 +67,7 @@ export class CursosComponent implements OnInit {
       this.insertRecord(form);
     else
       this.updateRecord(form);
+      this.toastr.success('Salvo com sucesso', 'resgistro de cursos')
   }
   insertRecord(form: NgForm) {
     if(this.service.curso == null ) return
@@ -55,7 +75,7 @@ export class CursosComponent implements OnInit {
       res => {
         this.resetForm(form);
         this.service.refreshList();
-        this.toastr.success('Inserido com sucesso', 'resgistro de')
+        this.toastr.success('Inserido com sucesso;-)', 'resgistro de cursos')
       },
       err => { console.log(err); }
     );

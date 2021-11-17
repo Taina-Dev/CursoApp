@@ -46,7 +46,13 @@
 <div class="jumbotron py-3">
   <h1 class="display-4 text-center"> Bem Vindo Curso Cast</h1>
 </div>
-<!-- <input type="text" class="form-control col-md-6" placeholder="Buscar"> -->
+ <input 
+ type="text" 
+ class="form-control col-md-6" 
+ placeholder="Buscar"
+ [(ngModel)]="filtroLista"> 
+ <p></p>
+ <h3>Filtro:{{filtroLista}}</h3>
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCursosModal">
   Cadastrar
 </button>
