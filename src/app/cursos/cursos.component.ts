@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
@@ -14,25 +13,25 @@ import { FormsModule } from '@angular/forms';
 export class CursosComponent implements OnInit {
   cursos: Curso[] = []
   private _filtroLista: string ='';
-
-
-  public get filtroLista(): string{
+  
+   public get filtroLista(): string{
      return this._filtroLista;
   }
 
   public set filtroLista(value: string){
     this._filtroLista = value;
     this.cursos = this.filtroLista ? this.filtrarCursos(this.filtroLista): this.cursos;
-  }
+  } 
+
   constructor(public service: CursosService, private toastr: ToastrService) { }
 
+  
   filtrarCursos(filtrarPor: string): any{
     filtrarPor= filtrarPor.toLocaleLowerCase();
     return this.cursos.filter(
       (curso: {nomeCurso: string; dataInicio: string;categorias: string}) => curso.nomeCurso.toLocaleLowerCase().indexOf(filtrarPor) !== -1||
       curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1 || curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1);
   }
-
 
   ngOnInit(): void {
     this.service.refreshList().subscribe(cursos => {
@@ -43,9 +42,7 @@ export class CursosComponent implements OnInit {
     this.service.curso = curso;
   }
   AdicionarCurso(){
-    debugger
     this.service.curso= new Curso()
-
   }
 
   onDelete(id: number){
@@ -69,6 +66,11 @@ export class CursosComponent implements OnInit {
       this.updateRecord(form);
       this.toastr.success('Salvo com sucesso', 'resgistro de cursos')
   }
+
+  onEditar(){
+   
+  }
+
   insertRecord(form: NgForm) {
     if(this.service.curso == null ) return
     this.service.postCurso().subscribe(
@@ -80,6 +82,7 @@ export class CursosComponent implements OnInit {
       err => { console.log(err); }
     );
   }
+
   updateRecord(form: NgForm) {
     this.service.putCurso().subscribe(
       res => {

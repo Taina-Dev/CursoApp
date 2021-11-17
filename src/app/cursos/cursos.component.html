@@ -1,65 +1,25 @@
-<!-- modal -->
-<!-- <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
-  <input type="hidden" name="cursoId" [value]="service.curso.cursoId" />
-  <div class="form-group col-md-6">
-    <label>Nome do Curso</label>
-      <input class="form-control form-control-lg" placeholder="Digite o nome do curso" name="Nomdocurso"
-          #Nomedocurso="ngModel" [(ngModel)]="service.curso.nomeCurso" required minlength="2" maxlength="20"
-          >
-          <div class="valid-feedback">
-            Muito bem !
-          </div>
-    </div>
-<div classs="form-row">
-<div class="form-group col-md-6">
-  <label>Data Inicio</label>
-<input class="form-control form-control-lg" type="date" name="dataInicio"
-      #dataInicio="ngModel" [(ngModel)]="service.curso.dataInicio" required
-       >
-</div>
-<div class="form-group col-md-6">
-  <label>Data Termino</label>
-<input class="form-control form-control-lg" type="date" name="dataTermino"
-      #data="ngModel" [(ngModel)]="service.curso.data" required
-      >
-</div>
-<div class="form-group col-md-6">
-  <label>Quantidade de Alunos</label>
-  <input class="form-control form-control-lg" placeholder="qtAlunos" name="qtAlunos"
-      #qtAlunos="ngModel" [(ngModel)]="service.curso.qtAlunos"
-       >
-</div>
-<div class="form-group col-md-6">
-  <label>Categorias</label>
-  <input class="form-control form-control-lg" placeholder="categorias" name="categorias"
-      #categorias="ngModel" [(ngModel)]="service.curso.categorias"
-      >
-</div>
-<div class="form-group col-md-3">
-  <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SALVAR</button>
-</div>
-</div>
-</form> -->
-<!-- ----modal----- -->
-
 <div class="container"> 
 <div class="jumbotron py-3">
-  <h1 class="display-4 text-center"> Bem Vindo Curso Cast</h1>
+  <h1 class="display-4 text-center">Bem Vindo Curso Cast</h1>
 </div>
- <input 
- type="text" 
- class="form-control col-md-6" 
- placeholder="Buscar"
- [(ngModel)]="filtroLista"> 
- <p></p>
-<h3>Filtro:{{filtroLista}}</h3> 
+<div class="row g-4 align-items-center">
+  <div class="col-auto">
+    <label for="inputPassword6" class="col-form-label"></label>
+  </div>
+  <div class="col-auto">
+    <input 
+    type="text" 
+    class="form-control col-md-6" 
+    [(ngModel)]="filtroLista"> 
+  </div>
+  <!-- <h3>Filtro:{{filtroLista}}</h3>  -->
+</div>
+
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCursosModal">
   Cadastrar
 </button>
-<!-- <button type="button" class="btn btn-dark" (click)="AdicionarCurso()">Cadastrar</button> -->
 <hr>
-<!-- <app-cursos-form></app-cursos-form> -->
-
+<!-- tabela show -->
 <div class="row">
   <div class="col-md-10">
   <table class="table">
@@ -71,17 +31,23 @@
         <th>Quantidade Alunos</th>
         <th>Categoria do curso</th>
         <th>Delete</th>
+        <th>Editar</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cr of cursos">
-        <td (click)="populateForm(cr)">{{cr.nomeCurso}}</td>
-        <td (click)="populateForm(cr)">{{cr.dataInicio}}</td>
-        <td (click)="populateForm(cr)">{{cr.data}}</td>
-        <td (click)="populateForm(cr)">{{cr.qtAlunos}}</td>
-        <td (click)="populateForm(cr)">{{cr.categorias}}</td>
+      <tr (click)="populateForm(cr)"*ngFor="let cr of cursos">
+        <td>{{cr.nomeCurso}}</td>
+        <td>{{cr.dataInicio|date:'dd/MM/yyyy'}}</td>
+        <td>{{cr.data|date:'dd/MM/yyyy'}}</td>
+        <td>{{cr.qtAlunos}}</td>
+        <td>{{cr.categorias}}</td>
        <td>
          <i class="bx bx-trash" (click)="onDelete(cr.cursoId)"></i>
+       </td>
+       <td>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCursosModal">
+          <i class="bi bi-pencil-fill" (click)="onEditar()"></i> 
+        </button>
        </td>
       </tr>
     </tbody>
@@ -89,8 +55,9 @@
   </div>
 </div>
 </div>
-
-
+<!-- tabela show-->
+ 
+ <!-- modal -->
 <div class="modal fade" id="addCursosModal" tabindex="-1" role="dialog" aria-labelledby="addCursosModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -137,21 +104,16 @@
               #categorias="ngModel" [(ngModel)]="service.curso.categorias"
               >
         </div>
-        
         <div class="form-group col-md-4">
           <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SALVAR</button>
         </div>
         </div>
         </form>
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
     </div>
   </div>
 </div>
-
+<!-- modal -->
 
 
 
