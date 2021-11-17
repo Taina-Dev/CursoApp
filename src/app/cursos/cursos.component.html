@@ -52,7 +52,7 @@
  placeholder="Buscar"
  [(ngModel)]="filtroLista"> 
  <p></p>
- <h3>Filtro:{{filtroLista}}</h3>
+<h3>Filtro:{{filtroLista}}</h3> 
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCursosModal">
   Cadastrar
 </button>
@@ -78,8 +78,8 @@
         <td (click)="populateForm(cr)">{{cr.nomeCurso}}</td>
         <td (click)="populateForm(cr)">{{cr.dataInicio}}</td>
         <td (click)="populateForm(cr)">{{cr.data}}</td>
-        <td (click)="populateForm(cr)">{{cr.categorias}}</td>
         <td (click)="populateForm(cr)">{{cr.qtAlunos}}</td>
+        <td (click)="populateForm(cr)">{{cr.categorias}}</td>
        <td>
          <i class="bx bx-trash" (click)="onDelete(cr.cursoId)"></i>
        </td>
@@ -137,6 +137,7 @@
               #categorias="ngModel" [(ngModel)]="service.curso.categorias"
               >
         </div>
+        
         <div class="form-group col-md-4">
           <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SALVAR</button>
         </div>
