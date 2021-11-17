@@ -1,6 +1,6 @@
 <div class="container"> 
 <div class="jumbotron py-3">
-  <h1 class="display-4 text-center">Bem Vindo Curso Cast</h1>
+  <h1 class="display-4 text-center">Bem Vindo á Cast Cursos</h1>
 </div>
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCursosModal">
   Cadastrar
@@ -73,12 +73,14 @@
         <div class="form-group col-md-7">
           <label>Data Inicio</label>
         <input class="form-control form-control-lg" type="date" name="dataInicio"
+        data-validation-format="dd/mm/yyyy" data-validation-error-msg="Insira uma data válida" 
               #dataInicio="ngModel" [(ngModel)]="service.curso.dataInicio" required
                >
         </div>
         <div class="form-group col-md-7 ">
           <label>Data Termino</label>
         <input class="form-control form-control-lg" type="date" name="dataTermino"
+        data-validation-format="dd/mm/yyyy" data-validation-error-msg="Insira uma data válida"
               #data="ngModel" [(ngModel)]="service.curso.data" required
               >
         </div>
@@ -90,9 +92,15 @@
         </div>
         <div class="form-group col-md-7">
           <label>Categorias</label>
-          <input class="form-control form-control-lg" placeholder="categorias" name="categorias"
-              #categorias="ngModel" [(ngModel)]="service.curso.categorias"
-              >
+          <select name="categorias" #categorias="ngModel" [(ngModel)]="service.curso.categorias"
+              class="form-control-lg col-md-12">
+              <option value="">Selecionar</option>
+              <option value="Multiplataforma">Multiplataforma</option>
+                <option value= "Banco de dados">Banco de Dados</option>
+                <option value="Metodologia">Metodologia</option>
+                <option value="Comportamento">Comportamento</option>  
+                <option value= "Comunicação">Comunicação</option>
+            </select>
         </div>
         <div class="form-group col-md-4">
           <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">SALVAR</button>
@@ -126,9 +134,12 @@
             type="text" 
             class="form-control col-md-6" 
             placeholder="Digite o nome do curso"
-            [(ngModel)]="filtroLista"> 
-            <hr>
+            [(ngModel)]="filtroLista">
+            <hr> 
           </div>
           <!-- <h3>Filtro:{{filtroLista}}</h3>  -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">Ok</button>
         </div>
       </div>

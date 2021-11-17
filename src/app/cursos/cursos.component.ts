@@ -2,7 +2,7 @@ import { Curso } from './../shared/cursos.model';
 import { CursosService } from './../shared/cursos.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { NgForm } from '@angular/forms';
+import { NgForm, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,9 @@ export class CursosComponent implements OnInit {
   cursos: Curso[] = []
   private _filtroLista: string ='';
   
+  
+   constructor(public service: CursosService, private toastr: ToastrService) { }
+   
    public get filtroLista(): string{
      return this._filtroLista;
   }
@@ -21,28 +24,39 @@ export class CursosComponent implements OnInit {
   public set filtroLista(value: string){
     this._filtroLista = value;
     this.cursos = this.filtroLista ? this.filtrarCursos(this.filtroLista): this.cursos;
-  } 
-
-  constructor(public service: CursosService, private toastr: ToastrService) { }
-
+  }   
   
-  filtrarCursos(filtrarPor: string): any{
-    filtrarPor= filtrarPor.toLocaleLowerCase();
-    return this.cursos.filter(
-      (curso: {nomeCurso: string; dataInicio: string;categorias: string}) => curso.nomeCurso.toLocaleLowerCase().indexOf(filtrarPor) !== -1||
-      curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1 || curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1);
-  }
-
   ngOnInit(): void {
     this.service.refreshList().subscribe(cursos => {
       this.cursos = cursos;
     });
   }
+
+  filtrarCursos(filtrarPor: string): any{
+    filtrarPor= filtrarPor.toLocaleLowerCase();
+    return this.cursos.filter(
+      (curso: {nomeCurso: string; dataInicio: string;categorias: string}) => curso.nomeCurso.toLocaleLowerCase().indexOf(filtrarPor) !== -1||
+      curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1 || curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1);
+
+  }
+
+  
   populateForm(curso: Curso){
     this.service.curso = curso;
   }
-  AdicionarCurso(){
+
+ /*  AdicionarCurso(){
     this.service.curso= new Curso()
+  } */
+
+  onSubmit(form: NgForm) {
+    if(this.service.curso == null ) return
+    if (this.service.curso.cursoId == 0)
+      this.insertRecord(form);
+    else
+      this.updateRecord(form);
+      this.service.refreshList();
+      this.toastr.success('Salvo com sucesso', 'resgistro de cursos')
   }
 
   onDelete(id: number){
@@ -51,24 +65,14 @@ export class CursosComponent implements OnInit {
       .subscribe(
         res => {
           this.service.refreshList();
-          this.toastr.error("Registro deletado.", 'Cadastro curso');
+          this.toastr.error('Registro deletado', 'registro de curso')
         },
         err => {console.log(err)}
       )
     }
   }
-  onSubmit(form: NgForm) {
-    if(this.service.curso == null ) return
-
-    if (this.service.curso.cursoId == 0)
-      this.insertRecord(form);
-    else
-      this.updateRecord(form);
-      this.toastr.success('Salvo com sucesso', 'resgistro de cursos')
-  }
-
+  
   onEditar(){
-   
   }
 
   insertRecord(form: NgForm) {
@@ -77,7 +81,7 @@ export class CursosComponent implements OnInit {
       res => {
         this.resetForm(form);
         this.service.refreshList();
-        this.toastr.success('Inserido com sucesso;-)', 'resgistro de cursos')
+        this.toastr.success('Inserido com sucesso', 'resgistro de cursos')
       },
       err => { console.log(err); }
     );
@@ -93,12 +97,11 @@ export class CursosComponent implements OnInit {
       err => { console.log(err); }
     );
   }
+
   resetForm(form: NgForm) {
-    form.form.reset();
-
+    form.form.reset()
   }
-
-
+  
 }
 
 

@@ -9,23 +9,24 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
     CursosComponent,
     CursosFormComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ToastrModule.forRoot(),
     FormsModule,
-    HttpClientModule
-
-
+    HttpClientModule,
+    BrowserAnimationsModule
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

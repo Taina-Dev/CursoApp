@@ -14,6 +14,7 @@ export class CursosService {
 
   postCurso(): Observable<any> {
     return this.http.post(this.baseURL, this.curso);
+   
   }
 
   putCurso(): Observable<any>{
