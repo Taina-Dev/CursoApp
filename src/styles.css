@@ -27,7 +27,6 @@ html
   table tbody tr:hover {
     background: linear-gradient(-135deg,#f303cb,#06f1f1);
     cursor: pointer;
-
   }
 
   /*for invalid form controls*/
@@ -46,6 +45,7 @@ html
   .btn-success{
     background: linear-gradient(-135deg,#f303cb,#06f1f1);
   }
+
   #date{
     border:none;
     padding: 8px;
@@ -54,4 +54,3 @@ html
   .navbar{
     background: linear-gradient(-135deg,#f303cb,#06f1f1);
   }
- 

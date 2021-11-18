@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Data } from '@angular/router';
 import { Curso } from './../shared/cursos.model';
 import { CursosService } from './../shared/cursos.service';
@@ -5,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { HttpHandler } from '@angular/common/http';
 
 @Component({
   selector: 'app-cursos',
@@ -12,58 +15,44 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./cursos.component.css']
 })
 export class CursosComponent implements OnInit {
-  cursos: Curso[] = []
-  private _filtroLista: string ='';
- 
+ baseURL = 'https://localhost:44381/api/Cursos';
+ constructor(public service: CursosService, private toastr: ToastrService, private http: HttpClient) { }
+ cursos: Curso[] = []
+ private _filtroLista: string ='';
 
-   constructor(public service: CursosService, private toastr: ToastrService) { }
-   
-   public get filtroLista(): string{
+
+
+   public get filtroLista(): string {
      return this._filtroLista;
   }
 
-  public set filtroLista(value: string){
+  public set filtroLista(value: string) {
     this._filtroLista = value;
     this.cursos = this.filtroLista ? this.filtrarCursos(this.filtroLista): this.cursos;
-  }   
-  
+  }
+
   ngOnInit(): void {
     this.service.refreshList().subscribe(cursos => {
       this.cursos = cursos;
     });
   }
 
- /*  compareDates(){
-    if(this.dataInicio >= this.data){
-      console.log("data invalidade")
-      this.toastr.error('data invalidade');
-    }
-    else{
-      console.log("data valida")
-      this.toastr.success('data valida');
-    }
-    
-  } */
-
   filtrarCursos(filtrarPor: string): any{
     filtrarPor= filtrarPor.toLocaleLowerCase();
     return this.cursos.filter(
       (curso: {nomeCurso: string; dataInicio: string;categorias: string}) => curso.nomeCurso.toLocaleLowerCase().indexOf(filtrarPor) !== -1||
       curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1 || curso.dataInicio.toLocaleLowerCase().indexOf(filtrarPor) !== -1);
-
   }
 
   populateForm(curso: Curso){
     this.service.curso = curso;
-  }
 
- /*  AdicionarCurso(){
-    this.service.curso= new Curso()
-  } */
+  }
 
   onSubmit(form: NgForm) {
     if(this.service.curso == null ) return
     if (this.service.curso.cursoId == 0)
+
       this.insertRecord(form);
     else
       this.updateRecord(form);
@@ -83,20 +72,9 @@ export class CursosComponent implements OnInit {
       )
     }
   }
-  
-  onEditar(){
-    this.service.putCurso().subscribe(
-      res => {
-        
-        this.service.refreshList();
-        this.toastr.success('Editado', 'resgistro de cursos')
-      },
-      err => { console.log(err); }
-    ); 
-    
-  }
 
   insertRecord(form: NgForm) {
+
     if(this.service.curso == null ) return
     this.service.postCurso().subscribe(
       res => {
@@ -108,23 +86,38 @@ export class CursosComponent implements OnInit {
     );
   }
 
+  checarDatas(){
+    let datainicial = new Date(this.service.curso.dataInicio);
+    let datafinal = new Date(this.service.curso.data);
+    console.log(datainicial,datafinal)
+    if(this.service.curso == null ) return
+    if(datainicial >= datafinal){
+      this.toastr.error('Data invalida');
+      this.service.curso.dataInicio = "";
+      this.service.curso.data = "";
+    }
+    else{
+      this.toastr.success("Data valida")
+    }
+  }
+
   updateRecord(form: NgForm) {
     this.service.putCurso().subscribe(
       res => {
         this.resetForm(form);
         this.service.refreshList();
-        this.toastr.info('Salvo com sucesso', 'registro de curso')
+        this.toastr.info('Editado com sucesso', 'registro de curso')
       },
       err => { console.log(err); }
     );
   }
-  
 
   resetForm(form: NgForm) {
     form.form.reset()
   }
-  
-  
+
+
+
 }
 
 

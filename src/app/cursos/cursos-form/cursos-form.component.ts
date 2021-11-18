@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class CursosFormComponent implements OnInit {
 
-
   constructor(public service: CursosService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -22,7 +21,6 @@ export class CursosFormComponent implements OnInit {
 
    onSubmit(form: NgForm) {
     if(this.service.curso == null ) return
-
     if (this.service.curso.cursoId == 0)
       this.insertRecord(form);
     else
@@ -40,6 +38,7 @@ export class CursosFormComponent implements OnInit {
       err => { console.log(err); }
     );
   }
+
   updateRecord(form: NgForm) {
     this.service.putCurso().subscribe(
       res => {
@@ -53,7 +52,7 @@ export class CursosFormComponent implements OnInit {
 
   resetForm(form: NgForm) {
     form.form.reset();
-  } 
-  
+  }
+
 
 }

@@ -14,7 +14,7 @@ export class CursosService {
 
   postCurso(): Observable<any> {
     return this.http.post(this.baseURL, this.curso);
-   
+
   }
 
   putCurso(): Observable<any>{
@@ -26,7 +26,7 @@ export class CursosService {
   }
 
   refreshList(): Observable<any> {
-    return this.http.get(this.baseURL);
-
+    return this.http.get (this.baseURL);
+    
   }
 }
