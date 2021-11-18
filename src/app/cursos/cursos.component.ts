@@ -1,8 +1,9 @@
+import { Data } from '@angular/router';
 import { Curso } from './../shared/cursos.model';
 import { CursosService } from './../shared/cursos.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { NgForm, Validators } from '@angular/forms';
+import { NgForm} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -13,8 +14,8 @@ import { FormsModule } from '@angular/forms';
 export class CursosComponent implements OnInit {
   cursos: Curso[] = []
   private _filtroLista: string ='';
-  
-  
+ 
+
    constructor(public service: CursosService, private toastr: ToastrService) { }
    
    public get filtroLista(): string{
@@ -32,6 +33,18 @@ export class CursosComponent implements OnInit {
     });
   }
 
+ /*  compareDates(){
+    if(this.dataInicio >= this.data){
+      console.log("data invalidade")
+      this.toastr.error('data invalidade');
+    }
+    else{
+      console.log("data valida")
+      this.toastr.success('data valida');
+    }
+    
+  } */
+
   filtrarCursos(filtrarPor: string): any{
     filtrarPor= filtrarPor.toLocaleLowerCase();
     return this.cursos.filter(
@@ -40,7 +53,6 @@ export class CursosComponent implements OnInit {
 
   }
 
-  
   populateForm(curso: Curso){
     this.service.curso = curso;
   }
@@ -73,6 +85,15 @@ export class CursosComponent implements OnInit {
   }
   
   onEditar(){
+    this.service.putCurso().subscribe(
+      res => {
+        
+        this.service.refreshList();
+        this.toastr.success('Editado', 'resgistro de cursos')
+      },
+      err => { console.log(err); }
+    ); 
+    
   }
 
   insertRecord(form: NgForm) {
@@ -97,10 +118,12 @@ export class CursosComponent implements OnInit {
       err => { console.log(err); }
     );
   }
+  
 
   resetForm(form: NgForm) {
     form.form.reset()
   }
+  
   
 }
 
