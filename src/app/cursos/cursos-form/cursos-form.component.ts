@@ -19,7 +19,8 @@ export class CursosFormComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  onSubmit(form: NgForm) {
+
+   onSubmit(form: NgForm) {
     if(this.service.curso == null ) return
 
     if (this.service.curso.cursoId == 0)
@@ -27,6 +28,7 @@ export class CursosFormComponent implements OnInit {
     else
       this.updateRecord(form);
   }
+
   insertRecord(form: NgForm) {
     if(this.service.curso == null ) return
     this.service.postCurso().subscribe(
@@ -43,15 +45,15 @@ export class CursosFormComponent implements OnInit {
       res => {
         this.resetForm(form);
         this.service.refreshList();
-        this.toastr.info('Salvo com sucesso', 'registro de curso')
+        this.toastr.info('Editado', 'registro de curso')
       },
       err => { console.log(err); }
     );
   }
+
   resetForm(form: NgForm) {
     form.form.reset();
-
-  }
+  } 
   
 
 }
