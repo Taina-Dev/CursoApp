@@ -57,7 +57,7 @@ export class CursosComponent implements OnInit {
     else
       this.updateRecord(form);
       this.service.refreshList();
-      this.toastr.success('Salvo com sucesso', 'resgistro de cursos')
+      this.toastr.success('Salvo com sucesso')
   }
 
   onDelete(id: number){
@@ -66,7 +66,7 @@ export class CursosComponent implements OnInit {
       .subscribe(
         res => {
           this.service.refreshList();
-          this.toastr.error('Registro deletado', 'registro de curso')
+          this.toastr.error('Registro deletado com sucesso')
         },
         err => {console.log(err)}
       )
@@ -74,7 +74,6 @@ export class CursosComponent implements OnInit {
   }
 
   insertRecord(form: NgForm) {
-
     if(this.service.curso == null ) return
     this.service.postCurso().subscribe(
       res => {
@@ -106,7 +105,7 @@ export class CursosComponent implements OnInit {
       res => {
         this.resetForm(form);
         this.service.refreshList();
-        this.toastr.info('Editado com sucesso', 'registro de curso')
+        this.toastr.info('Editado com sucesso')
       },
       err => { console.log(err); }
     );
@@ -115,8 +114,6 @@ export class CursosComponent implements OnInit {
   resetForm(form: NgForm) {
     form.form.reset()
   }
-
-
 
 }
 
